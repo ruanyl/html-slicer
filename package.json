@@ -1,6 +1,6 @@
 {
   "name": "html-slicer",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "html slicer",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,9 @@
     "type": "git",
     "url": "https://github.com/ruanyl/html-slicer"
   },
-  "keywords": ["html css"] ,
+  "keywords": [
+    "html css"
+  ],
   "author": "Yulong Ruan",
   "license": "MIT",
   "bugs": {
@@ -18,7 +20,8 @@
   },
   "homepage": "https://github.com/ruanyl/html-slicer",
   "dependencies": {
-    "ava": "0.0.4"
+    "ava": "0.0.4",
+    "jsdom": "^3.0.2"
   },
   "devDependencies": {}
 }

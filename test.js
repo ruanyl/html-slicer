@@ -1,7 +1,6 @@
 'use strict';
-var test = require('ava');
-var htmlSlicer = require('./');
+var slicer = require('./');
 
-test(function (t) {
-    //t.assert(htmlSlicer());
+slicer({url: 'http://nodejs.org', selector: '#content'}, function(result) {
+  console.log(result);
 });
