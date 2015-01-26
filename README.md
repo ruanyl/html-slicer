@@ -23,3 +23,11 @@ htmlSlicer({url: 'http://nodejs.org', selector: '#column1'},
 ```
 
 What this tool basically does is it clip part(which selector specified) of an webpage, and returns the result as html with inline css.
+
+## Previou
+
+### before -->
+![before](https://raw.githubusercontent.com/ruanyl/html-slicer/gh-pages/images/origin.png)
+
+### after -->
+![after](https://raw.githubusercontent.com/ruanyl/html-slicer/gh-pages/images/after.png)
