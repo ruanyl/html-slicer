@@ -1,6 +1,6 @@
 'use strict';
 var slicer = require('./');
 
-slicer({url: 'http://nodejs.org', selector: '#column1'}, function(result) {
+slicer({url: 'http://nodejs.org', selector: '#content'}, function(result) {
   console.log(result);
 });
