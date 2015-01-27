@@ -16,7 +16,7 @@ $ npm install html-slicer
 
 ``` js
 var htmlSlicer = require('html-slicer');
-htmlSlicer({url: 'http://nodejs.org', selector: '#content'},
+htmlSlicer({url: 'http://nodejs.org', selector: '#column1'},
   function(result) {
     console.log(result);
   });
