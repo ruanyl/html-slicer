@@ -1,11 +1,13 @@
 'use strict';
 
 var jsdom = require("jsdom");
+var URL = require("url-parse");
 
 var slicer = function(config, callback) {
   if(!config.url || !config.selector) throw 'Config Error';
 
   var url = config.url;
+  var sourceUrl = new URL(url);
   var selector = config.selector;
   var id = 0;
   var dumpedCss = {};
@@ -42,6 +44,9 @@ var slicer = function(config, callback) {
         var id = createId($element);
         dumpedCss[id] = style;
 
+        $element = urlTransform($element);
+
+        //set element inline css
         $element.attr('style', styleObjectToString(style));
 
         $element.children().each(function(i, ele) {
@@ -60,6 +65,35 @@ var slicer = function(config, callback) {
         }
 
         return styleString;
+      }
+
+      function urlTransform($element) {
+
+        if($element.prop('tagName') === 'A') {
+          var href = $element.attr('href');
+          var aUrl = new URL(href);
+
+          //if it is not a internet url
+          if(!aUrl.hostname) {
+            //TODO should consider absolute and relative url
+            $element.attr('href', sourceUrl.protocol + '//' + sourceUrl.host + href);
+          }
+        }
+
+        //TODO should consider data url
+        if($element.prop('tagName') === 'IMG') {
+          var src = $element.attr('src');
+          var imgUrl = new URL(src);
+
+          //if it is not a internet url
+          if(!imgUrl.hostname) {
+            //TODO should consider absolute and relative url
+            $element.attr('src', sourceUrl.protocol + '//' + sourceUrl.host + src);
+          }
+        }
+
+        return $element;
+
       }
 
     }

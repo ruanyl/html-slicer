@@ -21,7 +21,8 @@
   "homepage": "https://github.com/ruanyl/html-slicer",
   "dependencies": {
     "ava": "0.0.4",
-    "jsdom": "^3.0.2"
+    "jsdom": "^3.0.2",
+    "url-parse": "^1.0.0"
   },
   "devDependencies": {}
 }
