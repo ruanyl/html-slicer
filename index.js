@@ -1,13 +1,12 @@
 'use strict';
 
 var jsdom = require("jsdom");
-var URL = require("url-parse");
+var _url = require("url");
 
 var slicer = function(config, callback) {
   if(!config.url || !config.selector) throw 'Config Error';
 
   var url = config.url;
-  var sourceUrl = new URL(url);
   var selector = config.selector;
   var id = 0;
   var dumpedCss = {};
@@ -27,8 +26,6 @@ var slicer = function(config, callback) {
       var bodyStyle = window.getComputedStyle($('body')[0]);
       bodyStyle = styleObjectToString(bodyStyle);
       $body.attr('style', bodyStyle);
-
-      //console.log(window.getComputedStyle($('#column2')[0]).float);
 
       dumpCss($content);
       callback($body.append($content)[0].outerHTML);
@@ -71,25 +68,16 @@ var slicer = function(config, callback) {
 
         if($element.prop('tagName') === 'A') {
           var href = $element.attr('href');
-          var aUrl = new URL(href);
 
-          //if it is not a internet url
-          if(!aUrl.hostname) {
-            //TODO should consider absolute and relative url
-            $element.attr('href', sourceUrl.protocol + '//' + sourceUrl.host + href);
-          }
+          href = _url.resolve(url, href);
+          $element.attr('href', href);
         }
 
-        //TODO should consider data url
         if($element.prop('tagName') === 'IMG') {
           var src = $element.attr('src');
-          var imgUrl = new URL(src);
 
-          //if it is not a internet url
-          if(!imgUrl.hostname) {
-            //TODO should consider absolute and relative url
-            $element.attr('src', sourceUrl.protocol + '//' + sourceUrl.host + src);
-          }
+          src = _url.resolve(url, src);
+          $element.attr('src', src);
         }
 
         return $element;
