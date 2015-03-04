@@ -37,25 +37,31 @@ var slicer = function(config, callback) {
       }
 
       function dumpCss($element) {
-        var style = window.getComputedStyle($element[0]);
-        var id = createId($element);
-        dumpedCss[id] = style;
+        if($element[0]) {
+          var style = window.getComputedStyle($element[0]);
+          if(style) {
+            var id = createId($element);
+            dumpedCss[id] = style;
 
-        $element = urlTransform($element);
+            $element = urlTransform($element);
 
-        //set element inline css
-        $element.attr('style', styleObjectToString(style));
+            //set element inline css
+            $element.attr('style', styleObjectToString(style));
 
-        $element.children().each(function(i, ele) {
-          dumpCss($(ele));
-        });
+            $element.children().each(function(i, ele) {
+              dumpCss($(ele));
+            });
+          }
+        }
       }
 
       function styleObjectToString(style) {
         //return style.cssText;
         var styleString = '';
         for(var key in style._values) {
-          styleString = styleString + key + ': ' + style._values[key].replace(/\"/g, '\'') + ';'
+          if(style._values[key] !== undefined) {
+            styleString = styleString + key + ': ' + style._values[key].replace(/\"/g, '\'') + ';'
+          }
         }
         if(style.float) {
           styleString = styleString + 'float: ' + style.float;
@@ -69,15 +75,19 @@ var slicer = function(config, callback) {
         if($element.prop('tagName') === 'A') {
           var href = $element.attr('href');
 
-          href = _url.resolve(url, href);
-          $element.attr('href', href);
+          if(href) {
+            href = _url.resolve(url, href);
+            $element.attr('href', href);
+          }
         }
 
         if($element.prop('tagName') === 'IMG') {
           var src = $element.attr('src');
 
-          src = _url.resolve(url, src);
-          $element.attr('src', src);
+          if(src) {
+            src = _url.resolve(url, src);
+            $element.attr('src', src);
+          }
         }
 
         return $element;
