@@ -59,7 +59,7 @@ var slicer = function(config, callback) {
         //return style.cssText;
         var styleString = '';
         for(var key in style._values) {
-          if(style._values[key] !== undefined) {
+          if(style._values[key] !== undefined && style._values[key] !== 'inherit') {
             styleString = styleString + key + ': ' + style._values[key].replace(/\"/g, '\'') + ';'
           }
         }
